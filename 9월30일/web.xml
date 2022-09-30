@@ -1,0 +1,20 @@
+<web-app xmlns="http://java.sun.com/xml/ns/j2dd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLcation="http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+<servlet>
+	<servlet-name>Ch3 Beer</servlet-name>
+	<!-- DD이름 -->
+	<servlet-class>com.example.web.BeerSelect</servlet-class>
+	<!-- 서블릿 클래스의 완전한 이름 -->
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>Ch3 Beer</servlet-name>
+	<!-- DD이름 -->
+	<url-pattern>/SelectBeer.do</url-pattern>
+	<!-- 클라이언트가 사용할 이름 -->
+</servlet-mapping>
+
+</web-app>
