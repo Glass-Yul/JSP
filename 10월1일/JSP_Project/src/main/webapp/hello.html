@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<form action="hi">
+		<!-- 서블릿 매핑 주소 => hi -->
+			<div>
+				<label>"안녕하세요"를 몇 번 출력하시겠습니까?</label>
+			</div>
+			<div>
+				<input type="text" name="cnt"/>
+				<!-- name에 적힌 키을 가지고 쿼리스트링을 만듦 -->
+				<input type="submit" value="출력"/>
+				<!-- 입력된 값이 있으면 해당 키의 값이 됨 -->
+				<!-- ex) http://../hi?cnt=입력한값 -->
+			</div>
+		</form>
+	</div>
+</body>
+</html>
