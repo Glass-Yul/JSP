@@ -1,0 +1,12 @@
+/* 구글에서 재공해주는 폰트 사용 */
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
+/* 모든 글에 적용할 수 있게 '*'를 사용 */
+* {
+	font-family : 'Nanum Gothic';
+}
+/* <h1>태그에는 다르게 사용 */
+h1 {
+	font-family : 'Hanna';
+}
