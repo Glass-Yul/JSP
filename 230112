@@ -1,0 +1,154 @@
+# JSP
+
+> **JSP**
+> 
+- JSP 문법
+    - 스크립트 이해
+        - 선언문 : 전역변수 선언 및 메소드 선언에 사용
+            
+            `<%! 선언문 작성 %>`
+            
+            ⇒ jsp에 작성 후 실행하면 서블릿에 서비스 부분에 기술됨(_jspService()부분이 아닌 윗단에 작성됨)
+            
+        - 스크립트릿 : 프로그래밍 코드 기술에 사용
+            
+            `<% 자바코드 작성 %>`
+            
+            <ex>
+            
+            ```java
+            <%
+            	for(int i=0; i<5; i++) {
+            %>
+            	<!-- 반복될 영역 -->
+            	<!-- 이때 출력 하고싶은 코드는 <%= %>를 사용함 -->
+            <%
+            	}
+            %>
+            ```
+            
+        - 표현식 : 화면에 출력할 내용 기술에 사용
+            
+            `<%= 출력할 내용 작성 %>`
+            
+            ⇒ 웹 브라우저에 출력하고 싶을 때 사용
+            
+            ⇒ 스크립트릿 내에서 출력하고 싶을 때는 out객체에 print()또는 println()을 사용
+            
+    - 주석
+        - HTML : 웹에서 서비스할 때 화면에 표시되지 않지만 [소스보기] 수행 시 주석 내용확인 가능
+            
+            `<!-- html 주석 -->`
+            
+        - JSP : 해당 페이지를 웹 브라우저를 통해 출력 결과로 표시하거나 [소스보기]를 해도 표지되지 않으며 서블릿 코드 내에서 확인 가능
+            
+            `<%-- jsp 주석 -->`
+            
+        - JAVA : 스크립트릿이나 선언문에서 사용됨
+            
+            `// 또는 /* */`
+            
+- JSP  내장객체
+    - 특징(?)
+        - JSP 실행 시 서블릿 소스가 생성되고 실행됨
+        - JSP에 입력한 대부분의 코드는 서블릿 소스 안 `_jspService()`메소드 안에 입력됨
+        - `_jspService()`~~에 입력된~~ 코드 윗 부분에 미리 선언된 객체들은 JSP에서도 사용 가능
+        - response, request, applicaion, session, out과 같은 변수를 내장객체라함
+    - 내장객체 종류
+    
+    ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6864075b-02c6-443b-86ce-272be19bc50b/Untitled.png)
+    
+
+> **Redirect & Forward**
+> 
+- Redirect
+    - redirect : 서버가 클라이언트 요청에 대해 특정 URL로 이동을 요청하는 것
+    - 특징
+        - HTTP프로토콜로 정해진 규칙
+        - 서버가 클라이언트에게 HTTP 상태코드 302로 응답함. 이때 헤더 내 Location 값에 이동할 URL 을 추가함. 클라이언트는 리다이렉션 응답을 받게 되면 헤더(Location)에 포함된 URL로 재요청을 보내게 됨. 이때 브라우저의 주소창은 새 URL로 바뀜
+        - 클라이언트는 서버로부터 받은 상태 값이 302이면 Location헤더값으로 재요청을 보내게 됨. 이때 브라우저의 주소창은 전송받은 URL로 바뀜
+        - 서블릿이나 JSP는 리다이렉트하기 위해 HttpServletResponse 클래스의 sendRedirect() 메소드를 사용함
+        - 결론 : 시스템(session, DB)에 변화가 생기는 요청(로그인, 회원가입, 글쓰기 등)의 경우 사용
+            
+            ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d08d6af1-221d-48dd-abd8-38d57e6b5fc9/Untitled.png)
+            
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3637408c-80da-472c-b885-e42e7548cca7/Untitled.png)
+        
+- Forward
+    - forward : 지정된 사이트에 자동적으로 연결되도록 하는 것
+        - redirect처럼 url이 바뀌지 않음
+        - 같은 웹 어플리케이션 내에서만 가능
+        - 결론 : 시스템에 변화가 생기지 않는 단순조회(리스트보기, 검색 등)의 경우 사용
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/83cc4871-bd8b-4e68-a5cd-8509543b02e8/Untitled.png)
+        
+
+> **Scope**
+> 
+- Scope란?
+    - Scope : 웹 어플리케이션에서 공유하고 싶은 변수 또는 사용자 별로 유지하고 싶은 변수 또는 포워딩 되는 동안 유지하고 싶은 변수 등 어떤 범위 내에서 사용하기 위해 사용됨
+    - 종류
+        - Page scope : 서블릿이든 JSP이든 페이지 내에서 지역변수처럼 사용
+            - PageContext 추상 클래스를 사용
+            - JSP 페이지에서 pageContext라는 내장 객체로 사용 가능함
+            - forward가 될 경우 해당 pageScope에 지정된 변수는 사용할 수 없음
+            - JSP에서 pageScope에 값을 저장한 후 해당 값을 EL표기법 등에서 사용됨
+            - 지역 변수처럼 해당 JSP나 서블릿이 실행되는 동안에만 정보를 유지하고자 할 때 사용됨
+        - Request scope : http요청을 WAS가 받아서 웹 브라우저에게 응답할 때까지 변수가 유지되는 경우 사용
+            - HttpServletRequest 객체를 사용
+            - JSP에서는 request 내장 변수를 사용
+            - ~~서블릿에서는 HttpServletRequest 객체를 사용~~
+            - 값을 저장할 때는 request 객체의 setAttribute()메소드를 사용
+            - 값을 읽어 들일 때는 request 객체의 getAttribute()메소드를 사용
+            - forward 시 값을 유지하고자 사용함
+            - 앞에서 forward에 대하여 배울 때 forward 하기 전에 request 객체의 setAttribute() 메소드로 값을 설정한 후, 서블릿이나 JSP에게 결과를 전달하여 값을 출력하도록 하였는데 이렇게 forward 되는 동안 값이 유지되는 것이 Request scope를 이용한 것임
+        - Session scope : 세션 객체가 생성되고 소멸될 때까지 사용함. 즉 웹 브라우저 별로 변수를 관리하고자 할 경우 사용
+            - 웹 브라우저간의 탭 간에는 세션정보가 공유되기 때문에 각각의 탭에서는 같은 세션정보를 사용할 수 있음
+            - HttpSession 인터페이스를 구현한 객체를 사용
+            - JSP에서는 session 내장 변수를 사용
+            - ~~서블릿에서는 HttpServletRequest의 getSession()메소드를 이용하여 session 객체를 얻음~~
+            - 값을 저장할 때는 session 객체의 setAttribute()메소드를 사용
+            - 값을 읽어 들일 때는 session 객체의 getAttribute()메소드를 사용
+            - 장바구니처럼 사용자별로 유지가 되어야 할 정보가 있을 때 사용
+        - Application scope : 하나의 웹 어플리케이션이 시작되고 종료될 때까지 변수가 유지되는 경우 사용
+            - ServletContext 인터페이스를 구현한 객체를 사용
+            - JSP에서는 application 내장 객체를 이용
+            - ~~서블릿의 경우는 getServletContext()메소드를 이용하여 application객체를 이용~~
+            - 웹 어플리케이션 하나당 하나의 application객체가 사용됨
+            - 값을 저장할 때는 application객체의 setAttribute()메소드를 사용
+            - 값을 읽어 들일 때는 application객체의 getAttribute()메소드를 사용
+            - 모든 클라이언트가 공통으로 사용해야 할 값들이 있을 때 사용
+    
+
+> **JSTL & EL**
+> 
+- EL
+    - Expression Language : 값을 표현하는 데 사용되는 스크립트 언어로서 JSP의 기본 문법을 보완하는 역할
+        
+        `${ 코드 }`
+        
+        - JSP 스크립트 요소(스크립트릿, 표현식, 선언부)를 제외한 나머지 부분에서 사용됨 ⇒ 표현식보다 편리하게 사용 가능
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1a4f5040-64d6-44d3-b77e-b19301da0c09/Untitled.png)
+        
+        - EL이 제공하는 기능
+            - JSP의 스코프(scope)에 맞는 속성 사용
+            - 집합 객체에 대한 접근 방법 제공
+            - 수치 연산, 관계 연산, 논리 연산자 제공
+            - 자바 클래스 메소드 호출 기능 제공
+            - 표현언어만의 기본 객체 제공
+        - 기본 객체
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fe3adc43-dc38-49fa-a5d9-9ed750210ea0/Untitled.png)
+        
+        - 객체 접근 규칙
+            
+            `${ <표현1>.<표현2> }` 일 때
+            
+            - 표현 1이나 표현 2가 null이면 null을 반환
+            - 표현1이 Map일 경우 표현2를 key로한 값을 반환
+            - 표현1이 List나 배열이면 표현2가 정수일 경우 해당 정수 번째 index에 해당하는 값을 반환
+            - 만약 정수가 아닐 경우에는 오류가 발생
+            - 표현1이 객체일 경우는 표현2에 해당하는 getter메소드에 해당하는 메소드를 호출한 결과를 반환
+        - EL 활성화 ⇒ `<%@ page isELIgnored = "true" %>`
