@@ -1,0 +1,151 @@
+> **JDBC**
+> 
+- JDBC
+    - Java Database Connectivity : 자바 프로그램 내에서 SQL문을 실행하기 위한 자바 API
+    - 프로그래밍 방법
+        1. API 불러오기
+            
+            `import java.sql.*;`
+            
+        2. 드라이버를 로드 함
+            
+            `Class.forName(”com.mysql.jdbc.Driver”);`
+            
+        3. Connection 객체를 생성함
+            
+            `String dbURL = “jdbc:mysql://localhost/DB이름”;`
+            
+            `Connection con = DriverManager.getConnection(dbURL, dbID, dbPWD);`
+            
+        4. Statement 객체를 생성 및 질의 수행
+            
+            ⇒ PreparedStatement도 많이 사용
+            
+            `Statement stmt = con.createStatement();`
+            
+            `PreparedStatement ptmt = con.PreparedStatement(SQL쿼리_변수);`
+            
+        5. SQL문에 결과물이 있다면 ResultSet 객체를 생성함
+            1. 종류
+                
+                ```java
+                stmt.execute("any SQL 쿼리문");
+                stmt.executeQuery("select SQL 쿼리문");
+                stmt.executeUpdate("insert/update/delete SQL 쿼리문");
+                ```
+                
+            
+            `ResultSet rs = stmt.executeQuery(”SQL 쿼리문”);`
+            
+        6. ResultSet으로 결과 받기
+            
+            ```java
+            ResultSet rs =  stmt.executeQuery( "select SQL 쿼리문" );
+            while ( rs.next() ) // 다음값이 있으면
+            			// getInt : 컬럼 도메인에 따라 변경됨
+                  System.out.println( rs.getInt( "컬럼명" or 컬럼순서) );
+            ```
+            
+        7. 모든 객체를 닫음
+            
+            ⇒ 마지막에 선언된 것 먼저 순차적으로 닫아줌
+            
+    - 클래스 생성 관계
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0236e88c-491f-41de-b7f1-856c828e9de1/Untitled.png)
+        
+
+> **API**
+> 
+- **Rest API**
+    - API(Application Programming Interface) : 응용 프로그램에서 사용할 수 있도록, 운영 체제나 프로그래밍 언어가 제공하는 기능을 제어할 수 있게 만든 인터페이스
+    - Rest(REpresentational State Transfer) API : 두 컴퓨터 시스템이 인터넷을 통해 정보를 안전하게 교환하기 위해 사용하는 인터페이스
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/dfa7cc20-072a-4fbd-a027-c5316b1eb3d0/Untitled.png)
+        
+    - Rest 제약조건
+        - Client-Server : 버는 API 제공, 클라이언트는 사용자 인증이나 컨텍스트(세션, 로그인 정보) 등을 직접 관리하는 구조로 각각의 역할이 확실히 구분됨
+        - Stateless : 작업을 위한 상태정보를 따로 저장하고 관리하지 않음
+            
+            ⇒ 세션/쿠키 정보를 별도로 저장/관리하지 않음
+            
+        - Cache : HTTP라는 기존 웹 표준을 그대로 사용하기 때문에, 웹에서 사용하는 기존 인프라를 그대로 활용할 수 있음
+        - Uniform Interface : 특정 언어나 기술에 종속되지 않고 모든 플랫폼에 사용할 수 있으며, URI로 지정한 리소스에 대한 조작이 가능한 아키텍처 스타일
+        - Layered System : 보안, 로드 밸런싱, 암호화 계층을 추가해 구조상의 유연성을 둘 수 있고 PROXY, 게이트웨이 같은 네트워크 기반의 중간매체를 사용할 수 있음
+        - Code-On-Demand (optional) : 소프트웨어 프로그래밍 코드를 클라이언트에 전송하여 클라이언트 기능을 일시적으로 확장하거나 사용자 지정할 수 있음
+    - Rest CRUD 메소드
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0e13094a-b323-4f00-ba4f-072467fb3c1e/Untitled.png)
+        
+    
+    ⇒ 몇 가지 제약조건을 지키지않을 경우 Web API 혹은 HTTP API라고 불림
+    
+- **Web API**
+    - Web API : 웹 서버 또는 웹 브라우저를 위한 애플리케이션 프로그래밍 인터페이스
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/08808e3b-1a22-4a0b-9e54-143e9f706b9b/Untitled.png)
+        
+    - 자원에 대한 HTTP 메소드 표현
+        
+        ![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f2958877-b7f1-4f82-958b-cb2fbce0ce7c/Untitled.png)
+        
+        <예시>
+        
+        ```html
+        GET /members/1
+        POST /members
+        PUT /members/1
+        DELETE /members/1
+        ```
+        
+    - URL vs URI
+        - URL
+            - 프로토콜: http, https, ftp 등
+            - 호스트네임: 도메인 or IP (서버컴퓨터의 이름 - 위치)
+            - URL path: 서버컴퓨터(host)에서 클라이언트가 요청한 파일 디렉토리
+            - 쿼리: 추가적 질문사항
+        - URI
+            - Identifier: 식별자, 자원 식별자, id값(index)
+            - URI가 URL을 포함
+            - 예시: http://localhost/DB테이블명/7 ⇒ DB에 저장된 데이터 7번째 것을 나타냄
+        
+        ⇒ URL은 서버컴퓨터에서 클라이언트가 요청한 파일의 디렉토리를 나타내지만 URI는 자원의 고유 식별자(id값)임
+        
+    - HTTP 응답 코드
+        - 2xx : 성공
+            
+            
+            | 200 | 클라이언트의 요청을 정상적으로 수행함 |
+            | --- | --- |
+            | 201 | 클라이언트에게 생성 작업을 요청 받았고, 생성 작업을 성공함 |
+            | 204 | 요청은 성공 했지만 응답할 콘텐츠가 없음 |
+        - 3xx : 리다이렉션
+            
+            
+            | 301 | 클라이언트가 요청한 리소스에 대한 URI가 영구적으로 변경되었을 때 사용함 |
+            | --- | --- |
+            | 302 | 301과 같으나 임시적으로 주소가 바뀌었을 경우 사용함 |
+            | 304 | 이전에 방문했을 때의 요청 결과와 다르지 않을 경우 사용함. 캐시된 페이지를 그대로 사용 |
+            | 307 | 임시 페이지로 리다이렉트 |
+        - 4xx : 클라이언트 오류
+            
+            
+            | 400 | 클라이언트가 올바르지 못한 요청을 보냄 |
+            | --- | --- |
+            | 401 | 로그인을 하지 않아 페이지를 열 권한이 없음 |
+            | 403 | 금지된 페이지, 로그인을 하든 안하든 접근할 수 없음 (관리자 페이지) |
+            | 404 | 찾을 수 없는 페이지, 주소를 잘 못 입력했을 때 사용함
+            ⇒ 403 대신에 사용할 수도 있음.(해커들의 공격을 방지하고자 페이지가 없는 것처럼 위장함) |
+            | 408 | 요청 시간이 초과됨 |
+            | 409 | 서버가 요청을 처리하는 과정에서 충돌이 발생한 경우 (회원가입 중 중복된 아이디인 경우) |
+            | 410 | 영구적으로 사용할 수 없는 페이지 |
+        - 5xx : 서버 오류
+            
+            
+            | 501 | 해당 요청을 처리하는 기능이 만들어지지 않음 |
+            | --- | --- |
+            | 502 | 서버로 가능 요청이 중간에서 유실된 경우 |
+            | 503 | 서버가 터졌거나 유지 보수 중
+            (유지 보수 중일때는 유지 보수중이라는 것을 알려주는 페이지로 전송해주는 것이 좋음) |
+            | 504 | 서버 게이트웨이에 문제가 생겨 시간 초과가 된 경우 |
+            | 505 | HTTP 버전이 달라 요청이 처리할 수 없음 |
