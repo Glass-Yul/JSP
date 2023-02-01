@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>link 스타일</title>
+<style>
+  .container {
+    width: 960px;
+    margin : 0 auto;
+  }
+  .navi{
+    width:960px;
+    height:60px;
+    padding-bottom:10px;
+    border-bottom:2px solid #ccc;
+  }
+  .navi ul{
+    list-style: none;
+    /* padding-top:10px; */ /* 안 하는 게 훨씬 깔끔함 */
+    padding-bottom:5px;
+  }
+  .navi ul li {
+    float:left;
+    width:150px;
+    padding:10px;   
+  }
+  .navi a:link, .navi a:visited{
+    /* 방문한 링크와 방문하지 않은 링크 */
+    display:block;
+    font-size:14px;
+    color:#000;
+    padding: 10px; 
+    text-decoration: none;  /* a 태그 밑줄 없앰 */
+    text-align: center;
+  }
+  .navi a:hover,  .navi a:focus { 
+    /* 마우스 포인터가 해당 영역 안에 있을 때 */
+    background-color:#222;  /* 배경 색 */
+    color:#fff;  /* 글자 색 */
+    font-weight: 5px; /* 이건 왜 안 먹힐까... */
+  }
+  .navi a:active { /* 클릭에서 클 할 때 나타남 */
+    background-color:rgb(89, 0, 255);  /* 배경 색 */
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navi">
+      <ul>
+        <li><a href="#">이용 안내</a></li>
+        <li><a href="#">객실 소개</a></li>
+        <li><a href="#">예약 방법 및 요금</a></li>
+        <li><a href="#">예약하기</a></li>
+      </ul>
+    </nav>  
+  </div>
+</body>
+</html>
