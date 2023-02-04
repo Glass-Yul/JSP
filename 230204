@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<title>Transform</title>
+    <style>
+      .origin{
+				width:152px;
+				height:180px;
+				border:1px solid black;
+				margin:30px;
+				float:left;  
+      }
+      .origin > div {
+        width:152px;
+        height:180px;
+      }
+      .rotatex:hover {
+        transform: rotateX(50deg);  /* x축으로 50도 회전 */ 
+      }
+      #pers {
+        perspective:700px;  /* 원근감 추가 */    
+      }
+		</style>
+	</head>
+	<body>		
+		<h4>원본 이미지</h4>
+		<div class="origin">
+			<img src="images/sunset.jpg" alt="">
+		</div>
+		<div class="origin">
+			<div class="rotatex">
+				<img src="images/sunset.jpg" alt="">
+			</div>
+		</div>
+		<div class="origin" id="pers">
+			<div class="rotatex">
+				<img src="images/sunset.jpg" alt="">
+			</div>
+		</div>
+	</body>
+</html>
+
+------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSS3 애니메이션</title>
+  <link rel="stylesheet" href="css/product-result.css">
+</head>
+<body>
+	<div id="container">
+    <h1>신상품 목록</h1>
+		<ul class="prod-list">
+      <li>
+        <img src="images/prod1.jpg">
+        <div class="caption">
+          <h2>상품 1</h2>
+          <p>상품 1 설명 텍스트</p>
+          <p>가격 : 12,345원</p>
+        </div>
+      </li>
+      <li>
+        <img src="images/prod2.jpg">
+        <div class="caption">
+          <h2>상품 2</h2>
+          <p>상품 2 설명 텍스트</p>
+          <p>가격 : 12,345원</p>
+        </div>
+      </li>
+      <li>
+        <img src="images/prod3.jpg">
+        <div class="caption">
+          <h2>상품 3</h2>
+          <p>상품 3 설명 텍스트</p>
+          <p>가격 : 12,345원</p>
+        </div>
+      </li>
+    </ul>
+	</div>
+</body>
+</html>
+---------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Transform:rotate</title>
+  <style>
+		#container{
+			width:800px;
+			margin:20px auto;
+		}
+		.origin {
+			width: 100px;
+			height: 100px;
+			float: left;
+			margin: 40px;
+		}
+
+    #rotate1:hover {
+      transform: rotate(40deg);  /* 시계 방향(오른쪽)으로 40도 회전 */
+    }
+    #rotate2:hover {
+      transform: rotate(-40deg);  /* 시계 반대 방향(왼쪽)으로 40도 회전 */
+    }
+  </style>
+</head>
+<body>		
+	<div id="container"> 
+		<div class="origin" id="rotate1">
+			<img src="images/tree.jpg">	
+		</div>
+		<div class="origin" id="rotate2">
+			<img src="images/tree.jpg">							
+	</div>
+</body>
+</html>
+----------------------------------------------------------
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Transform</title>
+  <style>
+    #container{
+      width:800px;
+      margin:20px auto;
+    }
+    .origin {
+      width: 100px;
+      height: 100px;
+      margin: 40px;
+      float: left;
+      border: 1px solid black;
+      perspective: 200px;  /* 원근감 추가 */ 
+    }
+    .origin > div {				
+      width:100px;
+      height:100px;
+      background-color:orange;
+      transition:all 3s;  /* 3초 동안 회전하도록 트랜지션 적용 */
+    }
+    #rotatex:hover {
+      transform: rotateX(55deg);  /* x축으로 55도 회전 */
+    }
+    #rotatey:hover {
+      transform: rotateY(55deg);  /* y축으로 55도 회전 */
+    }
+    #rotatez:hover {
+      transform: rotateZ(55deg);   /* z축으로 55도 회전 */
+    }
+    #rotatexyz:hover {
+      transform: rotate3d(2.5, 1.2, -1.5, 55deg);  /* x,y,z축으로 55도 회전 */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <div class="origin">
+      <div id="rotatex"></div>
+    </div>
+    <div class="origin">
+      <div id="rotatey"></div>
+    </div>
+    <div class="origin">		
+      <div id="rotatez"></div>
+    </div>
+    <div class="origin">	
+      <div id="rotatexyz"></div>	
+    </div>
+  </div>
+</body>
+</html>
