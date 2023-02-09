@@ -100,3 +100,22 @@ public class ex7_6 {
 
 }
 -----------------------------------------------------------------------------------------
+package chap7;
+
+import java.util.Scanner;
+import java.util.Vector;
+
+public class Ex1 {
+    public static void main(String arg[]){
+        Scanner sc = new Scanner(System.in);
+        Vector<Double> v = new Vector<>(5);
+        double max = 0;
+        for(int i=0;i<v.capacity();i++){
+            v.add(sc.nextDouble());
+            if(max<v.get(i))
+                max = v.get(i);
+        }
+        System.out.println("가장 큰 수는 "+max);
+    }
+}
+-----------------------------------------------------------------------------------------
