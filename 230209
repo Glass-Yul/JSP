@@ -1,0 +1,102 @@
+package chap7;
+
+import java.util.Vector;
+
+public class ex7_1 {
+    public static void main(String arg[]){
+        Vector<Integer> v = new Vector<>();
+        v.add(5);
+        v.add(4);
+        v.add(-1);
+        v.add(2,100);
+
+        System.out.println("벡터 내 요소 객체 수 : "+v.size());
+        System.out.println("벡터 현재 용량 : "+v.capacity());
+
+        for(int i=0;i<v.size();i++){
+            int n=v.get(i);
+            System.out.printf("%d ",n);
+        }
+        int sum=0;
+        for(int i=0;i<v.size();i++){
+            int n=v.elementAt(i); // 벡터 i 번째 정수
+            sum+=n;
+        }
+        System.out.println("\n벡터의 총 합 : "+sum);
+    }
+}
+-----------------------------------------------------------------------------------------
+package chap7;
+
+import java.awt.*;
+import java.util.*;
+
+public class ex7_4 {
+    public static void main(String arg[]){
+        HashMap<String, String> dic = new HashMap<>();
+        dic.put("baby", "아기");
+        dic.put("love", "사랑");
+        dic.put("apple", "사과");
+
+        Set<String> keys = dic.keySet(); // 모든 키를 받아옴 => 무작위 정렬 => 순서x
+        Iterator<String> it = keys.iterator(); // 키 검색을 위해
+        while(it.hasNext()){
+            String key = it.next(); // 키값
+            String value = dic.get(key); // 요소값
+            System.out.println("("+key+", "+value+")");
+        }
+
+        Scanner sc = new Scanner(System.in);
+        for(int i=0;i<3;i++){
+            System.out.print("찾고 싶은 단어는? ");
+            String str = sc.next();
+            String strr = dic.get(str); // 입력한 키에 대한 값
+            System.out.println(strr);
+        }
+    }
+}
+-----------------------------------------------------------------------------------------
+package chap7;
+
+class GStack<T>{ // 클래스 중복을 막기 위해 사용됨
+    int tos;
+    Object[] stck; // 스택에 저장된 요소 개수
+    public GStack(){
+        tos=0;
+        stck=new Object[10]; // T[10]으로 제네릭 타입의 배열 생성 불가!
+    }
+    public void push(T item){
+        if(tos==10) // 스택이 넘치기 전에 오버플로우 방지
+            return;
+        stck[tos]=item;
+        tos++;
+    }
+    public T pop() { // T는 제네릭으로 자료형으로 사용됨
+        if(tos==0) // 스택이 비어있을 때 언더플로우 방지
+            return null;
+        tos--;
+        return (T)stck[tos]; // 타입 매개변수 타입으로 캐스팅
+    }
+
+}
+public class ex7_6 {
+    public static void main(String arg[]){
+        GStack<String> stringStack = new GStack<>();
+        stringStack.push("seoul");
+        stringStack.push("busan");
+        stringStack.push("LA");
+        
+        for(int i=0;i<3;i++)
+            System.out.println(stringStack.pop());
+
+        GStack<Integer> intStack = new GStack<Integer>();
+        intStack.push(1);
+        intStack.push(3);
+        intStack.push(5);
+
+        for(int i=0;i<3;i++)
+            System.out.println(intStack.pop());
+    }
+
+}
+-----------------------------------------------------------------------------------------
